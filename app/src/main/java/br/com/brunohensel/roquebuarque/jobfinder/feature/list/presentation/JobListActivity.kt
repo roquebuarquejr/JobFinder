@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.brunohensel.roquebuarque.jobfinder.R
-import br.com.brunohensel.roquebuarque.jobfinder.data.model.Job
+import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
 import br.com.brunohensel.roquebuarque.jobfinder.feature.list.adapter.JobListAdapter
 import br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain.JobListInteractorImpl
 import br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain.JobListState
@@ -40,7 +40,7 @@ class JobListActivity : AppCompatActivity() {
 
     }
 
-    private fun showList(list: List<Job>) {
+    private fun showList(list: List<JobData>) {
         adapter.submitList(list)
         rvJobList.adapter = adapter
     }

@@ -2,7 +2,6 @@ package br.com.brunohensel.roquebuarque.jobfinder.data
 
 import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
 import io.reactivex.Observable
-import retrofit2.Response
 import retrofit2.http.GET
 
 /**

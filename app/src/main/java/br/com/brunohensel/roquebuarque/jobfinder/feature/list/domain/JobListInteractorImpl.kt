@@ -1,7 +1,7 @@
 package br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain
 
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
-import br.com.brunohensel.roquebuarque.jobfinder.data.model.Job
+import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
 import br.com.brunohensel.roquebuarque.jobfinder.data.providers.retrofit
 import io.reactivex.Observable
 
@@ -26,7 +26,7 @@ sealed class JobListState
 /**
  * When [JobListInteractor.fetchJobList] is success
  */
-data class Success(val list: List<Job>) : JobListState()
+data class Success(val list: List<JobData>) : JobListState()
 
 /**
  * When [JobListInteractor.fetchJobList] is failure
