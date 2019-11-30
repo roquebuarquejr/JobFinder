@@ -1,12 +1,8 @@
-package br.com.brunohensel.roquebuarque.jobfinder
+package br.com.brunohensel.roquebuarque.jobfinder.feature
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
-import br.com.brunohensel.roquebuarque.jobfinder.data.providers.retrofit
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import io.reactivex.schedulers.Schedulers.io
+import br.com.brunohensel.roquebuarque.jobfinder.R
 
 class MainActivity : AppCompatActivity() {
 
