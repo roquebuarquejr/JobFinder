@@ -4,7 +4,7 @@ import br.com.brunohensel.roquebuarque.jobfinder.jobDetail.jobDetailInteractor.J
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.schedulers.Schedulers.io
 
-class JobDetailViewModel(val interactor: JobDetailInteractor) {
+class JobDetailViewModel(private val interactor: JobDetailInteractor) {
 
     fun fetchJobDetailData() =
         interactor
