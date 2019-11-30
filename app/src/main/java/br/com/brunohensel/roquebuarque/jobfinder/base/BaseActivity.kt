@@ -8,8 +8,7 @@ import br.com.brunohensel.roquebuarque.jobfinder.application.di.ActivityModule
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-
-abstract class BaseActivity<ViewModel: BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<State: BaseState, ViewModel: BaseViewModel<State>> : AppCompatActivity() {
 
     @Inject
     lateinit var viewModel: ViewModel

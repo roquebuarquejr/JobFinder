@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_joblist.*
 /**
  * Activity to display job list
  */
-class JobListActivity : BaseActivity<JobListViewModel>() {
+class JobListActivity : BaseActivity<JobListState, JobListViewModel>() {
 
     private val adapter by lazy { JobListAdapter(::clickListerJobList) }
 
@@ -22,7 +22,7 @@ class JobListActivity : BaseActivity<JobListViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_joblist)
         viewModel
-            .getJobList()
+            .fetchState()
             .subscribe(::updateState)
             .also {
                 compositeDisposable.add(it)
