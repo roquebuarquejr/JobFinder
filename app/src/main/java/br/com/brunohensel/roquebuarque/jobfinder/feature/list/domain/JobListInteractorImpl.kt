@@ -1,34 +1,42 @@
 package br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain
 
+import br.com.brunohensel.roquebuarque.jobfinder.base.BaseState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
 import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
-import br.com.brunohensel.roquebuarque.jobfinder.data.providers.retrofit
 import io.reactivex.Observable
+import io.reactivex.Observable.defer
+import javax.inject.Inject
 
-class JobListInteractorImpl : JobListInteractor {
+class JobListInteractorImpl @Inject constructor(private val api: JobApi) {
 
-    private val api = retrofit.create(JobApi::class.java)
+    /**
+     * state for [JobListState]
+     */
+    val observable = fetchJobList()
 
-    override fun fetchJobList(): Observable<JobListState> =
-        api
-            .getJobPositions()
-            .map { Success(it) }
-            .cast(JobListState::class.java)
-            .onErrorReturn { Failure("Deu ruim") }
+    private fun fetchJobList(): Observable<JobListState> =
+        defer {
+            api
+                .getJobPositions()
+                .map { Success(it) }
+                .cast(JobListState::class.java)
+                .onErrorReturn { Failure("Deu ruim") }
+        }
+
 
 }
 
 /**
  * Class with all Job List states
  */
-sealed class JobListState
+sealed class JobListState : BaseState
 
 /**
- * When [JobListInteractor.fetchJobList] is success
+ * When [JobListInteractorImpl.fetchJobList] is success
  */
 data class Success(val list: List<JobData>) : JobListState()
 
 /**
- * When [JobListInteractor.fetchJobList] is failure
+ * When [JobListInteractorImpl.fetchJobList] is failure
  */
 data class Failure(val message: String) : JobListState()
