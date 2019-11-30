@@ -1,12 +1,15 @@
 package br.com.brunohensel.roquebuarque.jobfinder
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
 import br.com.brunohensel.roquebuarque.jobfinder.data.providers.retrofit
+import br.com.brunohensel.roquebuarque.jobfinder.jobDetail.presentation.JobDetailActivity
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.schedulers.Schedulers.io
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
