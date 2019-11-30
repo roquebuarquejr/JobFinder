@@ -5,6 +5,9 @@ import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET
 
+/**
+ * Api class for job requests
+ */
 interface JobApi {
 
     @GET("positions.json")

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="br.com.brunohensel.roquebuarque.jobfinder">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -12,9 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".jobDetail.presentation.JobDetailActivity"></activity>
-        <activity android:name=".MainActivity">
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".feature.list.presentation.JobListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
