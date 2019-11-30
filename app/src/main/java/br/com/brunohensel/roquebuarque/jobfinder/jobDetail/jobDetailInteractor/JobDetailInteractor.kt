@@ -5,17 +5,12 @@ import br.com.brunohensel.roquebuarque.jobfinder.data.JobFailure
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobSuccess
 import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
-import br.com.brunohensel.roquebuarque.jobfinder.data.providers.retrofit
 import io.reactivex.Observable
 
-class JobDetailInteractor {
-
-    private val request = retrofit.create(
-        JobApi::class.java
-    )
+class JobDetailInteractor(private val api: JobApi) {
 
     fun getJobDescriptionData(): Observable<JobState> =
-        request
+        api
             .getPositionDetail()
             .map { JobMapper(it) }
             .cast(JobState::class.java)

@@ -2,7 +2,7 @@ package br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain
 
 import br.com.brunohensel.roquebuarque.jobfinder.base.BaseState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
-import br.com.brunohensel.roquebuarque.jobfinder.data.model.Job
+import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
 import io.reactivex.Observable
 import io.reactivex.Observable.defer
 import javax.inject.Inject
@@ -34,7 +34,7 @@ sealed class JobListState : BaseState
 /**
  * When [JobListInteractorImpl.fetchJobList] is success
  */
-data class Success(val list: List<Job>) : JobListState()
+data class Success(val list: List<JobData>) : JobListState()
 
 /**
  * When [JobListInteractorImpl.fetchJobList] is failure

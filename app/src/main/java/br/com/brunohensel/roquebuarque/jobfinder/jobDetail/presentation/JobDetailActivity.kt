@@ -9,12 +9,13 @@ import br.com.brunohensel.roquebuarque.jobfinder.R
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobFailure
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobSuccess
-import br.com.brunohensel.roquebuarque.jobfinder.jobDetail.jobDetailInteractor.JobDetailInteractor
 import br.com.brunohensel.roquebuarque.jobfinder.jobDetail.jobDetailViewModel.JobDetailViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_job_detail.*
 
 class JobDetailActivity : AppCompatActivity() {
+
+    val viewModel: JobDetailViewModel? = null//by lazy { JobDetailViewModel(JobDetailInteractor()) }
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
@@ -23,13 +24,12 @@ class JobDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_job_detail)
 
 
-        val viewModel by lazy { JobDetailViewModel(JobDetailInteractor()) }
-        run {
+        /*run {
             viewModel
-                .fetchJobDetailData()
-                .subscribe(::renderState)
-                .also { compositeDisposable.add(it) }
-        }
+                ?.fetchJobDetailData()
+                ?.subscribe(::renderState)
+                ?.also { compositeDisposable.add(it) }
+        }*/
 
     }
 
