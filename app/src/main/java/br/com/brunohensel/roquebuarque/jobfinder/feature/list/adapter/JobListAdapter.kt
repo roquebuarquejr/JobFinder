@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.brunohensel.roquebuarque.jobfinder.R
 import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.item_job.view.*
 
 /**
  * Adapter to handle job list
