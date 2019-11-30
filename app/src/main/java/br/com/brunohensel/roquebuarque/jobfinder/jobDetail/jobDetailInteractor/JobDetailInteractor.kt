@@ -2,26 +2,20 @@ package br.com.brunohensel.roquebuarque.jobfinder.jobDetail.jobDetailInteractor
 
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobFailure
-import br.com.brunohensel.roquebuarque.jobfinder.data.JobState
+import br.com.brunohensel.roquebuarque.jobfinder.data.JobDetailState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobSuccess
-import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class JobDetailInteractor(private val api: JobApi) {
+class JobDetailInteractor @Inject constructor(private val api: JobApi) {
 
-    fun getJobDescriptionData(): Observable<JobState> =
+    val observable = getJobDescriptionData()
+
+    private fun getJobDescriptionData(): Observable<JobDetailState> =
         api
             .getPositionDetail()
-            .map { JobMapper(it) }
-            .cast(JobState::class.java)
+            .map { JobSuccess(it) }
+            .cast(JobDetailState::class.java)
             .doOnError { it.printStackTrace() }
             .onErrorReturn { JobFailure("Error") }
-}
-
-object JobMapper {
-    operator fun invoke(result: JobData): JobSuccess {
-        return JobSuccess(result)
-
-    }
-
 }
