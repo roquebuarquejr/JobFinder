@@ -1,5 +1,6 @@
 package br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain
 
+import androidx.annotation.VisibleForTesting
 import br.com.brunohensel.roquebuarque.jobfinder.base.BaseState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobApi
 import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
@@ -14,7 +15,8 @@ class JobListInteractorImpl @Inject constructor(private val api: JobApi) {
      */
     val observable = fetchJobList()
 
-    private fun fetchJobList(): Observable<JobListState> =
+    @VisibleForTesting
+    fun fetchJobList(): Observable<JobListState> =
         defer {
             api
                 .getJobPositions()
