@@ -1,5 +1,6 @@
 package br.com.brunohensel.roquebuarque.jobfinder.feature.list.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import br.com.brunohensel.roquebuarque.jobfinder.R
@@ -9,6 +10,8 @@ import br.com.brunohensel.roquebuarque.jobfinder.data.model.JobData
 import br.com.brunohensel.roquebuarque.jobfinder.feature.list.adapter.JobListAdapter
 import br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain.JobListState
 import br.com.brunohensel.roquebuarque.jobfinder.feature.list.domain.Success
+import br.com.brunohensel.roquebuarque.jobfinder.jobDetail.presentation.JobDetailActivity
+import br.com.brunohensel.roquebuarque.jobfinder.jobDetail.presentation.JobDetailActivity.Companion.KEY_JOB_ID
 import kotlinx.android.synthetic.main.activity_joblist.*
 
 /**
@@ -41,8 +44,7 @@ class JobListActivity : BaseActivity<JobListState, JobListViewModel>() {
     }
 
     private fun clickListerJobList(jobId: String) {
-        //TODO OPEN DETAIL ACTIVITY
-        Toast.makeText(this, jobId, Toast.LENGTH_LONG).show()
+        startActivity(JobDetailActivity.start(this, jobId))
     }
 
     override fun onStop() {
