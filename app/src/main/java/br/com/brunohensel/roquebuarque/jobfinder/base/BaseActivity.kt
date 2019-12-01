@@ -14,7 +14,7 @@ abstract class BaseActivity<State : BaseState, ViewModel : BaseViewModel<State>>
     @Inject
     lateinit var viewModel: ViewModel
 
-    val compositeDisposable by lazy { CompositeDisposable() }
+    private val compositeDisposable by lazy { CompositeDisposable() }
     private var component: ActivityComponent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

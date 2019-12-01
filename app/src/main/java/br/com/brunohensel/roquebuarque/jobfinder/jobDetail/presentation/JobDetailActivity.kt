@@ -46,49 +46,36 @@ class JobDetailActivity : BaseActivity<JobDetailState, JobDetailViewModel>() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        run {
-            viewModel
-                .fetchState()
-                .subscribe(::renderState)
-                .also {
-                    compositeDisposable.add(it)
-                }
-        }
-    }
-
-
     private fun renderSuccessState(state: JobSuccess) {
         Glide.with(this)
             .asBitmap()
             .load(state.data.companyLogo)
-            /*.listener(object : RequestListener<Bitmap>{
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-                override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    imgCompanyLogo.drawToBitmap()
-                   Palette.from(imgCompanyLogo.drawToBitmap()).generate { palette ->
-                        val bgColor =
-                            palette?.getDominantColor(ContextCompat.getColor(this@JobDetailActivity, android.R.color.white))
-                        val titleColor =
-                            palette?.getLightVibrantColor(ContextCompat.getColor(this@JobDetailActivity, android.R.color.black))
-                        collapsToolbar.setContentScrimColor(bgColor!!)
-                        collapsToolbar.setCollapsedTitleTextColor(titleColor!!)
-                        window.statusBarColor = bgColor
-                    }
-
-                    return true
-                }
-
-            })*/
             .into(imgCompanyLogo)
+        /*.listener(object : RequestListener<Bitmap>{
+          override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?,
+              isFirstResource: Boolean
+          ): Boolean {
+              return false
+          }
+          override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?,
+              dataSource: DataSource?,
+              isFirstResource: Boolean
+          ): Boolean {
+              imgCompanyLogo.drawToBitmap()
+             Palette.from(imgCompanyLogo.drawToBitmap()).generate { palette ->
+                  val bgColor =
+                      palette?.getDominantColor(ContextCompat.getColor(this@JobDetailActivity, android.R.color.white))
+                  val titleColor =
+                      palette?.getLightVibrantColor(ContextCompat.getColor(this@JobDetailActivity, android.R.color.black))
+                  collapsToolbar.setContentScrimColor(bgColor!!)
+                  collapsToolbar.setCollapsedTitleTextColor(titleColor!!)
+                  window.statusBarColor = bgColor
+              }
+
+              return true
+          }
+
+      })*/
 
         //collapsToolbar.title = state.data.title
         //collapsToolbar.setExpandedTitleColor(resources.getColor(android.R.color.transparent))
@@ -105,7 +92,6 @@ class JobDetailActivity : BaseActivity<JobDetailState, JobDetailViewModel>() {
     }
 
     override fun renderState(state: BaseState) {
-        Log.d("renderState", state.toString())
         when (state) {
             is JobSuccess -> renderSuccessState(state)
             is JobFailure -> Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()

@@ -19,11 +19,9 @@ class JobDetailInteractorImpl @Inject constructor(private val api: JobApi) : Job
             .switchMap {
                 if (it is Search) {
                     getJobDescriptionData(it.jobId)
-                } else {
+                } else  {
                     empty()
                 }
-            }.doOnError {
-                it.printStackTrace()
             }
     }
 
