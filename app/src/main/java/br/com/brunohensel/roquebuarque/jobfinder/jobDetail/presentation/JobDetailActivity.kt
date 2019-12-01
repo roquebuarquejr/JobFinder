@@ -7,14 +7,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
-import androidx.palette.graphics.Palette
 import br.com.brunohensel.roquebuarque.jobfinder.R
 import br.com.brunohensel.roquebuarque.jobfinder.application.di.ActivityComponent
 import br.com.brunohensel.roquebuarque.jobfinder.base.BaseActivity
+import br.com.brunohensel.roquebuarque.jobfinder.base.BaseState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobDetailState
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobFailure
 import br.com.brunohensel.roquebuarque.jobfinder.data.JobSuccess
@@ -41,29 +42,22 @@ class JobDetailActivity : BaseActivity<JobDetailState, JobDetailViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job_detail)
+        viewModel.search(intent.getStringExtra(KEY_JOB_ID))
 
+    }
 
+    override fun onStart() {
+        super.onStart()
         run {
             viewModel
-                .fetchJobDetail(intent.getStringExtra(KEY_JOB_ID))
+                .fetchState()
                 .subscribe(::renderState)
-                .also { compositeDisposable.add(it) }
-        }
-
-        appBarLayout
-        collapsToolbar
-        imgCompanyLogo
-        toolBar
-        txtJobDescription
-
-    }
-
-    private fun renderState(state: JobDetailState) {
-        when (state) {
-            is JobSuccess -> renderSuccessState(state)
-            is JobFailure -> Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
+                .also {
+                    compositeDisposable.add(it)
+                }
         }
     }
+
 
     private fun renderSuccessState(state: JobSuccess) {
         Glide.with(this)
@@ -96,25 +90,26 @@ class JobDetailActivity : BaseActivity<JobDetailState, JobDetailViewModel>() {
             })*/
             .into(imgCompanyLogo)
 
-        collapsToolbar.title = state.data.title
-        collapsToolbar.setExpandedTitleColor(resources.getColor(android.R.color.transparent))
+        //collapsToolbar.title = state.data.title
+        //collapsToolbar.setExpandedTitleColor(resources.getColor(android.R.color.transparent))
         txtJobDescription.text = (Html.fromHtml(state.data.description))
         txtJobDescription.movementMethod = ScrollingMovementMethod()
         /*collapsToolbar.setContentScrimColor(Color.WHITE)
         collapsToolbar.setCollapsedTitleTextColor(Color.BLACK)*/
 
 
-
-
-    }
-
-    override fun onStop() {
-        compositeDisposable.clear()
-        super.onStop()
     }
 
     override fun onInject(component: ActivityComponent) {
         component.injectJobDetailActivity(this)
+    }
+
+    override fun renderState(state: BaseState) {
+        Log.d("renderState", state.toString())
+        when (state) {
+            is JobSuccess -> renderSuccessState(state)
+            is JobFailure -> Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

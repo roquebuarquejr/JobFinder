@@ -8,7 +8,8 @@ import br.com.brunohensel.roquebuarque.jobfinder.application.di.ActivityModule
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class BaseActivity<State: BaseState, ViewModel: BaseViewModel<State>> : AppCompatActivity() {
+abstract class BaseActivity<State : BaseState, ViewModel : BaseViewModel<State>> :
+    AppCompatActivity() {
 
     @Inject
     lateinit var viewModel: ViewModel
@@ -22,16 +23,26 @@ abstract class BaseActivity<State: BaseState, ViewModel: BaseViewModel<State>> :
         super.onCreate(savedInstanceState)
     }
 
-    protected abstract fun onInject(component: ActivityComponent)
-
     private fun createComponent(): ActivityComponent {
         val application = JobFinderApplication::class.java.cast(application)
         val component = application!!.getComponent()
         return component.createActivityComponent(ActivityModule(this))
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.fetchState()
+            .subscribe(::renderState)
+            .also {
+                compositeDisposable.add(it)
+            }
+    }
+
     override fun onStop() {
         compositeDisposable.clear()
         super.onStop()
     }
+
+    protected abstract fun onInject(component: ActivityComponent)
+    protected abstract fun renderState(state: BaseState)
 }
